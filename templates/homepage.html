@@ -1,10 +1,32 @@
 {% extends 'base.html' %}{% block content %}
-<div id="HomepageTopBlock" class="row">
-    <div id="homepageWelcomeBlock" class="col-8">
+<div class="row">
+    <div class="col-md-8 homepageBlocks FadedBlockBackground">
         <h1>Welcome to Ultimate Cooking</h1>
+        <p>Welcome to Ultimate Cooking. A place where you can view and share your favourite recipes with other like minded people<br><br>There is also a range of tools for viewing that have came highly recommended to the users of the website.</p>
+        <p><button type="button" class="btn btn-dark">View Recipes</button></p>
     </div>
-    <div id="homepageAdvancedFind" class="col-3">
+    <div class="col-md-3 offset-md-1 homepageBlocks FadedBlockBackground">
         <h2>Advanced Find</h2>
+        <form action="">
+            <div class="form-group">
+                <input type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-dark">Find Recipe</button>
+            </div>
+        </form>
     </div>
+</div>
+<div  class="row HomepageCounters homepageBlocks FadedBlockBackground">
+    <div class="col-md-3 "><div class="CounterBlock" class="align-items-center">Count of Recipes</div></div>
+    <div class="col-md-3"><div class="CounterBlock">Count of Cuisines</div></div>
+    <div class="col-md-3"><div class="CounterBlock">Count of Tools</div></div>
+    <div class="col-md-3"><div class="CounterBlock">Most Popular Cuisine</div></div>
 </div>
 {% endblock %}
