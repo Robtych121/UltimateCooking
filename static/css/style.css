@@ -1,0 +1,31 @@
+/* General Site Wide Styles */
+body {
+    background-image: url('/static/image/BackgroundImage.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.navbar {
+    background-color: #ffffff !important;
+}
+
+
+/* Homepage Styles */
+#homepageWelcomeBlock {
+    background-color: #ffffff;
+    margin-top: 25px;
+    margin-right: 25px;
+}
+
+#homepageAdvancedFind {
+    background-color: #ffffff;
+    margin-top: 25px;
+    max-width: 52%;
+    flex: 0 0 29.8%;
+    -ms-flex: 0 0 29.8%;
+}
+
+#HomepageTopBlock {
+    margin-left: 0px;
+}
