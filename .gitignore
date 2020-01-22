@@ -4,3 +4,5 @@ DCD-Milestone.code-workspace
 Milestone Project Notes.docx
 Wireframes/UltimateCooking.epgz
 __pycache__/*
+.vscode/*
+static/image/uploads/*
