@@ -31,6 +31,11 @@ h1,h2 {
     padding: 15px;
 }
 
+.form-label {
+    font-weight: bold;
+    color: #37b120;
+}
+
 
 /* Homepage Styles */
 .homepageBlocks {
@@ -97,4 +102,13 @@ Footer {
     background-color: white;
     padding-top: 15px;
     padding-bottom: 15px;
+}
+
+/* Add Page styles */
+.form-check {
+    margin-bottom: 15px;
+}
+
+.form-check-label {
+    text-transform: capitalize;
 }

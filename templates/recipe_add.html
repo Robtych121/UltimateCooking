@@ -15,24 +15,25 @@
         <div class="col-12">
             <form action="{{ url_for('insert_recipe') }}" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label for="name">Name</label>
+                    <label class="form-label" for="name">Name</label>
                     <input type="text" class="form-control" id="name" name="name" placeholder="Recipe Name">
                 </div>
                 <div class="form-group">
-                    <label for="description">Description</label>
+                    <label class="form-label" for="description">Description</label>
                     <input type="text" class="form-control" id="description" name="description" placeholder="Recipe Description">
                 </div>
                 <div class="form-group">
-                    <label for="picture">Picture</label>
+                    <label class="form-label" for="picture">Picture</label>
                     <input type="file" class="form-control-file" id="file" name="file">
                 </div>
                 <div class="form-group">
-                    <label for="instructions">Instructions</label>
+                    <label class="form-label" for="instructions">Instructions</label>
                     <textarea class="form-control" id="instructions" name="instructions" rows="3"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="complexity">Complexity</label>
+                    <label class="form-label" for="complexity">Complexity</label>
                     <select class="form-control" id="complexity" name="complexity">
+                        <option value="" disabled selected>Choose Complexity</option>
                         <option value="easy">Easy</option>
                         <option value="medium">Medium</option>
                         <option value="hard">Hard</option>
@@ -40,7 +41,7 @@
                       </select>
                 </div>
                 <div class="form-group">
-                    <p>Tools</p>
+                    <p class="form-label">Tools</p>
                 </div>
                 <div class="form-check">
                     {% for tool in tools %}
@@ -50,18 +51,19 @@
                     {% endfor %}
                 </div>
                 <div class="form-group">
-                    <p>Ingredients</p>
+                    <p class="form-label">Ingredients</p>
                 </div>
                 <div class="form-check">
                     {% for ingredient in ingredients %}
                         <input class="form-check-input" type="checkbox" value="{{ ingredient.name }}" id="ingredients" name="ingredients">
-                        <label class="form-check-label" for="ingredients">{{ ingredient.name }}</label>
+                        <label class="form-check-label" for="ingredients">{{ ingredient.name }} - {{ ingredient.unit }}</label>
                         <br>
                     {% endfor %}
                 </div>
                 <div class="form-group">
-                    <label for="cuisine">Cuisine</label>
+                    <label class="form-label" for="cuisine">Cuisine</label>
                     <select class="form-control" id="cuisine" name="cuisine">
+                        <option value="" disabled selected>Choose Cuisine</option>
                         {% for cuisine in cuisines %}
                             <option value="{{cuisine.name}}">{{cuisine.name}}</option>
                         {% endfor %}
