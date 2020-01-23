@@ -47,6 +47,25 @@ def insert_recipe():
     mongo.db.recipes.insert_one(recipe_doc)
     return redirect(url_for('add_recipe'))
 
+@app.route('/add_ingredient')
+def add_ingredient():
+    return render_template("ingredient_add.html",
+    ingredients=mongo.db.ingredients.find())
+
+@app.route('/insert_ingredient', methods=['POST'])
+def insert_ingredient():
+    recipe_doc = {
+        'name': request.form.get('name'),
+        'unit': request.form.get('unit')
+        }
+    mongo.db.ingredients.insert_one(recipe_doc)
+    return redirect(url_for('add_ingredient'))
+
+@app.route('/manage-ingredients')
+def manage_ingredients():
+    return render_template("ingredient_manage.html",
+    ingredients=mongo.db.ingredients.find())
+
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
     port=os.environ.get('PORT'),

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}{% block content %}
+<div class="row FadedBlockBackground">
+    <div class="col-12">
+    <div class="row">
+        <div class="col-12">
+            <h2>Manage Ingredients</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <p><a href="{{ url_for('add_ingredient')}}"><button type="button" class="btn btn-success">Add Ingredient</button></a></p>
+            <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Unit</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for ingredient in ingredients %}
+                    <tr>
+                        <th>{{ ingredient.name }}</th>
+                        <td>{{ ingredient.unit}}</td>
+                        <td><button type="button" class="btn btn-success btn-sm">Edit</button></td>
+                        <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock %}
