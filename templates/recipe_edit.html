@@ -1,0 +1,97 @@
+{% extends 'base.html' %}{% block content %}
+<div class="row FadedBlockBackground">
+    <div class="col-12">
+    <div class="row">
+        <div class="col-12">
+            <h2>Edit Recipe</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <p>Please fill out the below form to create a new recipe</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <form action="{{ url_for('update_recipe', recipe_id=recipe._id) }}" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label class="form-label" for="name">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{ recipe.name }}">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="description">Description</label>
+                    <input type="text" class="form-control" id="description" name="description" value="{{ recipe.description }}">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="instructions">Instructions</label>
+                    <textarea class="form-control" id="instructions" name="instructions" rows="3">{{ recipe.instructions }}</textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="complexity">Complexity</label>
+                    <select class="form-control" id="complexity" name="complexity">
+                        <option value="" disabled selected>Choose Complexity</option>
+                        <option value="easy" {% if recipe.complexity == 'easy' %} selected {%endif%}>Easy</option>
+                        <option value="medium"{% if recipe.complexity == 'medium' %} selected {%endif%}>Medium</option>
+                        <option value="hard"{% if recipe.complexity == 'hard' %} selected {%endif%}>Hard</option>
+                        <option value="extreme"{% if recipe.complexity == 'extreme' %} selected {%endif%}>Extreme</option>
+                      </select>
+                </div>
+                <div class="form-group">
+                    <p class="form-label">Tools</p>
+                </div>
+                <div class="form-check">
+                    {% for tool in tools %}
+                        {% if tool.name in recipe.tools %}
+                            <input class="form-check-input" type="checkbox" value="{{ tool.name }}" id="tools" name="tools" checked>
+                            <label class="form-check-label" for="tools">{{ tool.name }}</label>
+                            <br>
+                        {% else %}
+                            <input class="form-check-input" type="checkbox" value="{{ tool.name }}" id="tools" name="tools">
+                            <label class="form-check-label" for="tools">{{ tool.name }}</label>
+                            <br>
+                        {% endif%}
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    <p class="form-label">Ingredients</p>
+                </div>
+                <div class="form-check">
+                    {% for ingredient in ingredients %}
+                        {% if ingredient.name in recipe.ingredients %}
+                            <input class="form-check-input" type="checkbox" value="{{ ingredient.name }}" id="ingredients" name="ingredients" checked>
+                            <label class="form-check-label">{{ ingredient.name }} - {{ ingredient.unit }}</label>
+                            <br>
+                        {% else %}
+                            <input class="form-check-input" type="checkbox" value="{{ ingredient.name }}" id="ingredients" name="ingredients">
+                            <label class="form-check-label">{{ ingredient.name }} - {{ ingredient.unit }}</label>
+                            <br>
+                        {% endif%}
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="cuisine">Cuisine</label>
+                    <select class="form-control" id="cuisine" name="cuisine">
+                        <option value="" disabled selected>Choose Cuisine</option>
+                        {% for cuisine in cuisines %}
+                            {% if cuisine.name == recipe.cuisine %}
+                            <option value="{{cuisine.name}}" selected>{{cuisine.name}}</option>
+                            {% else %}
+                            <option value="{{cuisine.name}}">{{cuisine.name}}</option>
+                            {% endif %}
+                        {% endfor %}
+
+
+                        {% for cuisine in cuisines %}
+                            <option value="{{cuisine.name}}">{{cuisine.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success">Submit</button>
+                <a class="btn btn-danger" href="{{ url_for('manage_recipes')}}">Cancel</a>
+            </form>
+        </div>
+    </div>
+    
+    </div>
+</div>
+{% endblock %}

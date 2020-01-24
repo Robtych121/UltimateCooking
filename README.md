@@ -1,4 +1,4 @@
-# Hospitality Dashboard
+# Ultimate Cooking - Recipe Website
 This project is for the Data Centric Development Milestone Project By Code Institute.
 
 This website was created to allow users to create and share their favorite recipes with others while at the same time allowing the site owner to to promote their brand of cooking tools.

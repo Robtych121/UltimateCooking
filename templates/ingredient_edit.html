@@ -3,27 +3,27 @@
     <div class="col-12">
     <div class="row">
         <div class="col-12">
-            <h2>Add Ingredients</h2>
+            <h2>Edit Ingredient - {{ingredient.name}}</h2>
         </div>
     </div>
     <div class="row">
         <div class="col-12">
-            <p>Please fill out the below form to create a new ingredient</p>
+            <p>To amend the ingredient, please use the below form.</p>
         </div>
     </div>
     <div class="row">
         <div class="col-12">
-            <form action="{{ url_for('insert_ingredient') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ url_for('update_ingredient', ingredient_id=ingredient._id) }}" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label class="form-label" for="name">Name</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Ingredient Name" required>
+                    <input type="text" class="form-control" id="name" name="name" value="{{ingredient.name}}">
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="unit">Unit</label>
-                    <input type="text" class="form-control" id="unit" name="unit" placeholder="Ingredient Unit" required>
+                    <input type="text" class="form-control" id="unit" name="unit" value="{{ingredient.unit}}">
                 </div>
                 <button type="submit" class="btn btn-success">Submit</button>
-                <a href="{{ url_for('manage_ingredients')}}"><button class="btn btn-danger">Cancel</button></a>
+                <a href="{{ url_for('manage_ingredients')}}"><buttonc class="btn btn-danger">Cancel</button></a>
             </form>
         </div>
     </div>
