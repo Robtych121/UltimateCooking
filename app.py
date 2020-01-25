@@ -43,6 +43,7 @@ def insert_recipe():
         'complexity': request.form.get('complexity'),
         'tools': request.form.getlist('tools'),
         'ingredients': request.form.getlist('ingredients'),
+        'quantities': request.form.getlist('quantity'),
         'cuisine': request.form.get('cuisine')
         }
     mongo.db.recipes.insert_one(recipe_doc)
@@ -102,6 +103,7 @@ def update_recipe(recipe_id):
             'complexity': request.form.get('complexity'),
             'tools': request.form.getlist('tools'),
             'ingredients': request.form.getlist('ingredients'),
+            'quantities': request.form.getlist('quantity'),
             'cuisine': request.form.get('cuisine')
         })
     return redirect(url_for('manage_recipes'))
