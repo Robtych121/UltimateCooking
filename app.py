@@ -155,7 +155,19 @@ def update_ingredient(ingredient_id):
             'unit':request.form.get('unit')
         })
     return redirect(url_for('manage_ingredients'))
-        
+
+# Tools Routes
+@app.route('/manage_tools')
+def manage_tools():
+    return render_template("tool_manage.html",
+    tools=mongo.db.tools.find())
+
+# Cuisine Routes
+@app.route('/manage_cuisines')
+def manage_cuisines():
+    return render_template("cuisine_manage.html",
+    cuisines=mongo.db.cuisines.find())
+
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
     port=os.environ.get('PORT'),

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}{% block content %}
+<div class="row FadedBlockBackground">
+    <div class="col-12">
+        {% include 'manage.html' %}
+        {% block manage %} {% endblock %}
+    <div class="row">
+        <div class="col-12">
+            <h2>Manage Tools</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <p><a href=""><button type="button" class="btn btn-success">Add Tool</button></a></p>
+            <table class="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Unit</th>
+                    <th>Price</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for tool in tools %}
+                    <tr>
+                        <td>{{tool.name}}</td>
+                        <td>{{tool.brand}}</td>
+                        <td>{{tool.price}}</td>
+                        <td><a href=""><button type="button" class="btn btn-success btn-sm">Edit</button></a></td>
+                        <td><a href=""><button type="button" class="btn btn-danger btn-sm">Delete</button></a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock %}

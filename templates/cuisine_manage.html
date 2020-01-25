@@ -1,0 +1,38 @@
+{% extends 'base.html' %}{% block content %}
+<div class="row FadedBlockBackground">
+    <div class="col-12">
+        {% include 'manage.html' %}
+        {% block manage %} {% endblock %}
+    <div class="row">
+        <div class="col-12">
+            <h2>Manage Cuisine</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <p><a href=""><button type="button" class="btn btn-success">Add Cuisine</button></a></p>
+            <table class="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for cuisine in cuisines %}
+                    <tr>
+                        <td>{{cuisine.name}}</td>
+                        <td>{{cuisine.description}}</td>
+                        <td><a href=""><button type="button" class="btn btn-success btn-sm">Edit</button></a></td>
+                        <td><a href=""><button type="button" class="btn btn-danger btn-sm">Delete</button></a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock %}
