@@ -1,6 +1,8 @@
 {% extends 'base.html' %}{% block content %}
 <div class="row FadedBlockBackground">
     <div class="col-12">
+        {% include 'manage.html' %}
+        {% block manage %} {% endblock %}
     <div class="row">
         <div class="col-12">
             <h2>Edit Ingredient - {{ingredient.name}}</h2>
@@ -23,7 +25,7 @@
                     <input type="text" class="form-control" id="unit" name="unit" value="{{ingredient.unit}}">
                 </div>
                 <button type="submit" class="btn btn-success">Submit</button>
-                <a href="{{ url_for('manage_ingredients')}}"><buttonc class="btn btn-danger">Cancel</button></a>
+                <a class="btn btn-danger" href="{{ url_for('manage_ingredients')}}">Cancel</a>
             </form>
         </div>
     </div>

@@ -1,6 +1,8 @@
 {% extends 'base.html' %}{% block content %}
 <div class="row FadedBlockBackground">
     <div class="col-12">
+        {% include 'manage.html' %}
+        {% block manage %} {% endblock %}
     <div class="row">
         <div class="col-12">
             <h2>Add Recipe</h2>
