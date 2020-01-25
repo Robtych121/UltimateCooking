@@ -35,6 +35,9 @@ def insert_recipe():
     f = request.files['file']
     f.save(os.path.join(app.config['UPLOAD_FOLDER'], f.filename))
     url = f.filename
+    keys = request.form.getlist('ingredients')
+    values = request.form.getlist('quantity')
+    ingred_qtys = dict(zip(keys, values))
     recipe_doc = {
         'name': request.form.get('name'),
         'description': request.form.get('description'),
@@ -42,8 +45,7 @@ def insert_recipe():
         'instructions': request.form.get('instructions'),
         'complexity': request.form.get('complexity'),
         'tools': request.form.getlist('tools'),
-        'ingredients': request.form.getlist('ingredients'),
-        'quantities': request.form.getlist('quantity'),
+        'ingredients': ingred_qtys,
         'cuisine': request.form.get('cuisine')
         }
     mongo.db.recipes.insert_one(recipe_doc)
@@ -94,6 +96,9 @@ def update_recipe_picture(recipe_id):
 def update_recipe(recipe_id):
     recipes = mongo.db.recipes
     pictures = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)}, {'picture':1,'_id':0})
+    keys = request.form.getlist('ingredients')
+    values = request.form.getlist('quantity')
+    ingred_qtys = dict(zip(keys, values))
     recipes.update({'_id': ObjectId(recipe_id)},
         {
             'name': request.form.get('name'),
@@ -102,8 +107,7 @@ def update_recipe(recipe_id):
             'instructions': request.form.get('instructions'),
             'complexity': request.form.get('complexity'),
             'tools': request.form.getlist('tools'),
-            'ingredients': request.form.getlist('ingredients'),
-            'quantities': request.form.getlist('quantity'),
+            'ingredients': ingred_qtys,
             'cuisine': request.form.get('cuisine')
         })
     return redirect(url_for('manage_recipes'))

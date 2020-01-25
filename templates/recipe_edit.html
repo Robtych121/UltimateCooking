@@ -64,24 +64,19 @@
                             <label class="form-check-label">{{ ingredient.name }} - {{ ingredient.unit }}</label>
                             </div>
                             <div class="col-md-6">
-                                {% set rowloop = loop %}
-                                {% for quantity in recipe.quantities %}
-                                    {% if rowloop.index == loop.index %}
-                                    <select class="form-control" id="quantity" name="quantity"> 
+                                    <select class="form-control form-control-sm" id="quantity" name="quantity"> 
                                         <option value="" disabled selected>Choose Quantity</option>
-                                        <option value="1" {% if quantity == '1' %} selected {%endif%}>1</option>
-                                        <option value="2" {% if quantity == '2' %} selected {%endif%}>2</option>
-                                        <option value="3" {% if quantity == '3' %} selected {%endif%}>3</option>
-                                        <option value="4" {% if quantity == '4' %} selected {%endif%}>4</option>
-                                        <option value="5" {% if quantity == '5' %} selected {%endif%}>5</option>
-                                        <option value="6" {% if quantity == '6' %} selected {%endif%}>6</option>
-                                        <option value="7" {% if quantity == '7' %} selected {%endif%}>7</option>
-                                        <option value="8" {% if quantity == '8' %} selected {%endif%}>8</option>
-                                        <option value="9" {% if quantity == '9' %} selected {%endif%}>9</option>
-                                        <option value="10" {% if quantity == '10' %} selected {%endif%}>10</option>
+                                        <option value="1" {% if recipe.ingredients[ingredient.name] == '1' %} selected {%endif%}>1</option>
+                                        <option value="2" {% if recipe.ingredients[ingredient.name] == '2' %} selected {%endif%}>2</option>
+                                        <option value="3" {% if recipe.ingredients[ingredient.name] == '3' %} selected {%endif%}>3</option>
+                                        <option value="4" {% if recipe.ingredients[ingredient.name] == '4' %} selected {%endif%}>4</option>
+                                        <option value="5" {% if recipe.ingredients[ingredient.name] == '5' %} selected {%endif%}>5</option>
+                                        <option value="6" {% if recipe.ingredients[ingredient.name] == '6' %} selected {%endif%}>6</option>
+                                        <option value="7" {% if recipe.ingredients[ingredient.name] == '7' %} selected {%endif%}>7</option>
+                                        <option value="8" {% if recipe.ingredients[ingredient.name] == '8' %} selected {%endif%}>8</option>
+                                        <option value="9" {% if recipe.ingredients[ingredient.name] == '9' %} selected {%endif%}>9</option>
+                                        <option value="10" {% if recipe.ingredients[ingredient.name] == '10' %} selected {%endif%}>10</option>
                                     </select>
-                                    {%endif%}
-                                {% endfor %}
                              </div>
                         {% else %}
                             <div class="col-md-2">
@@ -89,7 +84,7 @@
                             <label class="form-check-label">{{ ingredient.name }} - {{ ingredient.unit }}</label>
                             </div>
                             <div class="col-md-6">
-                                    <select class="form-control" id="quantity" name="quantity">
+                                    <select class="form-control form-control-sm" id="quantity" name="quantity">
                                         <option value="" disabled selected>Choose Quantity</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
