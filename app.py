@@ -282,7 +282,7 @@ def edit_cuisine_picture(cuisine_id):
 @app.route('/update_cuisine_picture/<cuisine_id>', methods=['POST'])
 def update_cuisine_picture(cuisine_id):
     f = request.files['file']
-    f.save(os.path.join(app.config['UPLOAD_FOLDER_TOOL'], f.filename))
+    f.save(os.path.join(app.config['UPLOAD_FOLDER_CUISINE'], f.filename))
     url = f.filename
     cuisines = mongo.db.cuisines
     cuisine = mongo.db.cuisines.find_one({'_id': ObjectId(cuisine_id)})
