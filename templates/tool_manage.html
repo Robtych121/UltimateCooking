@@ -10,13 +10,14 @@
     </div>
     <div class="row">
         <div class="col-12">
-            <p><a href=""><button type="button" class="btn btn-success">Add Tool</button></a></p>
+            <p><a href="{{ url_for('add_tool')}}"><button type="button" class="btn btn-success">Add Tool</button></a></p>
             <table class="table table-bordered table-striped">
                 <thead>
                   <tr>
                     <th>Name</th>
                     <th>Unit</th>
                     <th>Price</th>
+                    <th>Change Picture</th>
                     <th>Edit</th>
                     <th>Delete</th>
                   </tr>
@@ -27,8 +28,9 @@
                         <td>{{tool.name}}</td>
                         <td>{{tool.brand}}</td>
                         <td>{{tool.price}}</td>
-                        <td><a href=""><button type="button" class="btn btn-success btn-sm">Edit</button></a></td>
-                        <td><a href=""><button type="button" class="btn btn-danger btn-sm">Delete</button></a></td>
+                        <td><a href="{{ url_for('edit_tool_picture', tool_id=tool._id) }}"><button type="button" class="btn btn-success btn-sm">Change Picture</button></a></td>
+                        <td><a href="{{ url_for('edit_tool', tool_id=tool._id) }}"><button type="button" class="btn btn-success btn-sm">Edit</button></a></td>
+                        <td><a href="{{ url_for('delete_tool', tool_id=tool._id) }}"><button type="button" class="btn btn-danger btn-sm">Delete</button></a></td>
                     </tr>
                     {% endfor %}
                 </tbody>

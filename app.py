@@ -14,7 +14,9 @@ app = Flask(__name__)
 app.config["MONGO_DBNAME"] = os.environ['MONGO_DBNAME']
 app.config["MONGO_URI"] = os.environ['MONGO_URI']
 app.config["SECRET_KEY"] = os.environ['SECRET_KEY']
-app.config['UPLOAD_FOLDER'] = 'static/image/uploads'
+app.config['UPLOAD_FOLDER_RECIPE'] = 'static/image/uploads/recipes'
+app.config['UPLOAD_FOLDER_TOOL'] = 'static/image/uploads/tools'
+app.config['UPLOAD_FOLDER_CUISINE'] = 'static/image/uploads/cuisines'
 
 mongo = PyMongo(app)
 
@@ -37,7 +39,7 @@ def add_recipe():
 @app.route('/insert_recipe', methods=['POST'])
 def insert_recipe():
     f = request.files['file']
-    f.save(os.path.join(app.config['UPLOAD_FOLDER'], f.filename))
+    f.save(os.path.join(app.config['UPLOAD_FOLDER_RECIPE'], f.filename))
     url = f.filename
     keys = request.form.getlist('ingredients')
     values = request.form.getlist('quantity')
@@ -69,17 +71,17 @@ def delete_recipe(recipe_id):
 def edit_recipe(recipe_id):
     the_recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
     return render_template("recipe_edit.html", recipe=the_recipe, cuisines=mongo.db.cuisines.find(),
-    ingredients=mongo.db.ingredients.find(), tools=mongo.db.tools.find(), imagePath=app.config['UPLOAD_FOLDER'])
+    ingredients=mongo.db.ingredients.find(), tools=mongo.db.tools.find(), imagePath=app.config['UPLOAD_FOLDER_RECIPE'])
 
 @app.route('/edit_recipe_picture/<recipe_id>')
 def edit_recipe_picture(recipe_id):
     the_recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
-    return render_template("recipe_pic_edit.html", recipe=the_recipe, imagePath=app.config['UPLOAD_FOLDER'])
+    return render_template("recipe_pic_edit.html", recipe=the_recipe, imagePath=app.config['UPLOAD_FOLDER_RECIPE'])
 
 @app.route('/update_recipe_picture/<recipe_id>', methods=['POST'])
 def update_recipe_picture(recipe_id):
     f = request.files['file']
-    f.save(os.path.join(app.config['UPLOAD_FOLDER'], f.filename))
+    f.save(os.path.join(app.config['UPLOAD_FOLDER_RECIPE'], f.filename))
     url = f.filename
     recipes = mongo.db.recipes
     recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
@@ -162,11 +164,135 @@ def manage_tools():
     return render_template("tool_manage.html",
     tools=mongo.db.tools.find())
 
+@app.route('/add_tool')
+def add_tool():
+    return render_template("tool_add.html")
+
+@app.route('/insert_tool', methods=['POST'])
+def insert_tool():
+    f = request.files['file']
+    f.save(os.path.join(app.config['UPLOAD_FOLDER_TOOL'], f.filename))
+    url = f.filename
+    tool_doc = {
+        'name': request.form.get('name'),
+        'description': request.form.get('description'),
+        'picture': url,
+        'brand': request.form.get('brand'),
+        'price': request.form.get('price')
+        }
+    mongo.db.tools.insert_one(tool_doc)
+    return redirect(url_for('manage_tools'))
+
+@app.route('/edit_tool/<tool_id>')
+def edit_tool(tool_id):
+    the_tool = mongo.db.tools.find_one({'_id': ObjectId(tool_id)})
+    return render_template("tool_edit.html", tool=the_tool, imagePath=app.config['UPLOAD_FOLDER_TOOL'])
+
+@app.route('/update_tool/<tool_id>', methods=['POST'])
+def update_tool(tool_id):
+    tools = mongo.db.tools
+    pictures = mongo.db.tools.find_one({'_id': ObjectId(tool_id)}, {'picture':1,'_id':0})
+    tools.update({'_id': ObjectId(tool_id)},
+        {
+            'name': request.form.get('name'),
+            'description': request.form.get('description'),
+            'picture': pictures['picture'],
+            'brand': request.form.get('brand'),
+            'price': request.form.get('price')
+        })
+    return redirect(url_for('manage_tools'))
+
+@app.route('/delete_tool/<tool_id>')
+def delete_tool(tool_id):
+    mongo.db.tools.remove({'_id': ObjectId(tool_id)})
+    return redirect(url_for('manage_tools'))
+
+@app.route('/edit_tool_picture/<tool_id>')
+def edit_tool_picture(tool_id):
+    the_tool = mongo.db.tools.find_one({'_id': ObjectId(tool_id)})
+    return render_template("tool_pic_edit.html", tool=the_tool, imagePath=app.config['UPLOAD_FOLDER_TOOL'])
+
+@app.route('/update_tool_picture/<tool_id>', methods=['POST'])
+def update_tool_picture(tool_id):
+    f = request.files['file']
+    f.save(os.path.join(app.config['UPLOAD_FOLDER_TOOL'], f.filename))
+    url = f.filename
+    tools = mongo.db.tools
+    tool = mongo.db.tools.find_one({'_id': ObjectId(tool_id)})
+    tools.update({'_id': ObjectId(tool_id)},
+        {
+            'name': tool['name'],
+            'description': tool['description'],
+            'picture': url,
+            'brand': tool['brand'],
+            'price': tool['price']
+        })
+    return redirect(url_for('manage_tools'))
+
 # Cuisine Routes
 @app.route('/manage_cuisines')
 def manage_cuisines():
     return render_template("cuisine_manage.html",
     cuisines=mongo.db.cuisines.find())
+
+@app.route('/add_cuisine')
+def add_cuisine():
+    return render_template("cuisine_add.html")
+
+@app.route('/insert_cuisine', methods=['POST'])
+def insert_cuisine():
+    f = request.files['file']
+    f.save(os.path.join(app.config['UPLOAD_FOLDER_CUISINE'], f.filename))
+    url = f.filename
+    cuisine_doc = {
+        'name': request.form.get('name'),
+        'description': request.form.get('description'),
+        'picture': url
+        }
+    mongo.db.cuisines.insert_one(cuisine_doc)
+    return redirect(url_for('manage_cuisines'))
+
+@app.route('/edit_cuisine/<cuisine_id>')
+def edit_cuisine(cuisine_id):
+    the_cuisine = mongo.db.cuisines.find_one({'_id': ObjectId(cuisine_id)})
+    return render_template("cuisine_edit.html", cuisine=the_cuisine, imagePath=app.config['UPLOAD_FOLDER_CUISINE'])
+
+@app.route('/update_cuisine/<cuisine_id>', methods=['POST'])
+def update_cuisine(cuisine_id):
+    cuisines = mongo.db.cuisines
+    pictures = mongo.db.cuisines.find_one({'_id': ObjectId(cuisine_id)}, {'picture':1,'_id':0})
+    cuisines.update({'_id': ObjectId(cuisine_id)},
+        {
+            'name': request.form.get('name'),
+            'description': request.form.get('description'),
+            'picture': pictures['picture']
+        })
+    return redirect(url_for('manage_cuisines'))
+
+@app.route('/delete_cuisine/<cuisine_id>')
+def delete_cuisine(cuisine_id):
+    mongo.db.cuisines.remove({'_id': ObjectId(cuisine_id)})
+    return redirect(url_for('manage_cuisines'))
+
+@app.route('/edit_cuisine_picture/<cuisine_id>')
+def edit_cuisine_picture(cuisine_id):
+    the_cuisine = mongo.db.cuisines.find_one({'_id': ObjectId(cuisine_id)})
+    return render_template("cuisine_pic_edit.html", cuisine=the_cuisine, imagePath=app.config['UPLOAD_FOLDER_CUISINE'])
+
+@app.route('/update_cuisine_picture/<cuisine_id>', methods=['POST'])
+def update_cuisine_picture(cuisine_id):
+    f = request.files['file']
+    f.save(os.path.join(app.config['UPLOAD_FOLDER_TOOL'], f.filename))
+    url = f.filename
+    cuisines = mongo.db.cuisines
+    cuisine = mongo.db.cuisines.find_one({'_id': ObjectId(cuisine_id)})
+    cuisines.update({'_id': ObjectId(cuisine_id)},
+        {
+            'name': cuisine['name'],
+            'description': cuisine['description'],
+            'picture': url
+        })
+    return redirect(url_for('manage_cuisines'))
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

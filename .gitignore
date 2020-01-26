@@ -5,4 +5,6 @@ Milestone Project Notes.docx
 Wireframes/UltimateCooking.epgz
 __pycache__/*
 .vscode/*
-static/image/uploads/*
+static/image/uploads/recipes/*
+static/image/uploads/tools/*
+static/image/uploads/cuisines/*

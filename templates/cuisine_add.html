@@ -1,0 +1,39 @@
+{% extends 'base.html' %}{% block content %}
+<div class="row FadedBlockBackground">
+    <div class="col-12">
+        {% include 'manage.html' %}
+        {% block manage %} {% endblock %}
+    <div class="row">
+        <div class="col-12">
+            <h2>Add Cuisine</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <p>Please fill out the below form to create a new cuisine</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <form action="{{ url_for('insert_cuisine') }}" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label class="form-label" for="name">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Cuisine Name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="description">Description</label>
+                    <input type="text" class="form-control" id="description" name="description" placeholder="Cuisine Description">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="picture">Picture</label>
+                    <input type="file" class="form-control-file" id="file" name="file">
+                </div>
+                <button type="submit" class="btn btn-success">Submit</button>
+                <a class="btn btn-danger" href="{{ url_for('manage_cuisines')}}">Cancel</a>
+            </form>
+        </div>
+    </div>
+    
+    </div>
+</div>
+{% endblock %}

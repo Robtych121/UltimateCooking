@@ -1,0 +1,52 @@
+{% extends 'base.html' %}{% block content %}
+<div class="row FadedBlockBackground">
+    <div class="col-12">
+        {% include 'manage.html' %}
+        {% block manage %} {% endblock %}
+    <div class="row">
+        <div class="col-12">
+            <h2>Add Tool</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <p>Please fill out the below form to create a new tool</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <form action="{{ url_for('insert_tool') }}" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label class="form-label" for="name">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Tool Name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="description">Description</label>
+                    <input type="text" class="form-control" id="description" name="description" placeholder="Tool Description">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="brand">Brand</label>
+                    <input type="text" class="form-control" id="brand" name="brand" placeholder="Tool brand">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="picture">Picture</label>
+                    <input type="file" class="form-control-file" id="file" name="file">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="price">Price</label>
+                    <div class="input-group"> 
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">£</span>
+                          </div>
+                        <input type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control" id="price" name="price" placeholder="Enter Price" />
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success">Submit</button>
+                <a class="btn btn-danger" href="{{ url_for('manage_tools')}}">Cancel</a>
+            </form>
+        </div>
+    </div>
+    
+    </div>
+</div>
+{% endblock %}
