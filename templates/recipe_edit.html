@@ -39,6 +39,14 @@
                       </select>
                 </div>
                 <div class="form-group">
+                    <label class="form-label" for="cookingTime">Cooking Time (Minutes)</label>
+                    <input type="number" class="form-control" id="cookingTime" name="cookingTime" value="{{ recipe.cookingTime }}">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="servings">Servings</label>
+                    <input type="number" class="form-control" id="servings" name="servings" value="{{ recipe.servings }}">
+                </div>
+                <div class="form-group">
                     <p class="form-label">Tools</p>
                 </div>
                 <div class="form-check">

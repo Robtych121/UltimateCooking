@@ -50,6 +50,8 @@ def insert_recipe():
         'picture': url,
         'instructions': request.form.get('instructions'),
         'complexity': request.form.get('complexity'),
+        'cookingTime': request.form.get('cookingTime'),
+        'servings': request.form.get('servings'),
         'tools': request.form.getlist('tools'),
         'ingredients': ingred_qtys,
         'cuisine': request.form.get('cuisine')
@@ -92,6 +94,8 @@ def update_recipe_picture(recipe_id):
             'picture': url,
             'instructions': recipe['instructions'],
             'complexity': recipe['complexity'],
+            'cookingTime': recipe['cookingTime'],
+            'servings': recipe['servings'],
             'tools': recipe['tools'],
             'ingredients': recipe['ingredients'],
             'cuisine': recipe['cuisine']
@@ -112,6 +116,8 @@ def update_recipe(recipe_id):
             'picture': pictures['picture'],
             'instructions': request.form.get('instructions'),
             'complexity': request.form.get('complexity'),
+            'cookingTime': request.form.get('cookingTime'),
+            'servings': request.form.get('servings'),
             'tools': request.form.getlist('tools'),
             'ingredients': ingred_qtys,
             'cuisine': request.form.get('cuisine')
