@@ -37,6 +37,15 @@ h1,h2 {
 }
 
 
+.nav-tabs {
+    border-bottom: 1px solid #b42124;
+}
+
+.nav-tabs .nav-link:hover {
+    border-color: #b42124 #b42124 #b42124;
+}
+
+
 /* Homepage Styles */
 .homepageBlocks {
     margin-top: 25px;
@@ -103,6 +112,10 @@ Footer {
     padding-bottom: 15px;
 }
 
+#Footer3 {
+    margin-left: 0px;
+}
+
 /* Add Page styles */
 .form-check {
     margin-bottom: 15px;
@@ -110,4 +123,19 @@ Footer {
 
 .form-check-label {
     text-transform: capitalize;
+}
+
+.ingred-rows{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.33);
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 10px;
+}
+
+#ingred-container {
+    height: 300px;
+    overflow-y: scroll;
+    border: 1px solid grey;
 }
