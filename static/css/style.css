@@ -6,7 +6,7 @@ body {
     background-size: cover;
 }
 
-h1,h2 {
+h1,h2,h3,h4,h5,h6 {
     color: rgb(180, 33, 36);
 }
 
@@ -45,6 +45,9 @@ h1,h2 {
     border-color: #b42124 #b42124 #b42124;
 }
 
+a,a:hover {
+    color: #b42124;
+}
 
 /* Homepage Styles */
 .homepageBlocks {
@@ -138,4 +141,29 @@ Footer {
     height: 300px;
     overflow-y: scroll;
     border: 1px solid grey;
+}
+
+/* View Tools styles */
+
+.card {
+    float: left;
+    width: 31%;
+    margin-right: 37px;
+    margin-bottom: 30px;
+}
+
+.card:nth-of-type(3n+0) {
+    margin-right: 0;
+}
+
+.tool_picture {
+    object-fit: cover;
+    height: 200px;
+}
+
+.view_tool_picture {
+    height: 500px;
+width: 500px;
+object-fit: cover;
+border: 1px solid black;
 }

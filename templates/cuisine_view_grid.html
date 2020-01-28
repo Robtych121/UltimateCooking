@@ -1,0 +1,29 @@
+{% extends 'base.html' %}{% block content %}
+<div class="row FadedBlockBackground">
+    <div class="col-12">
+    <div class="row">
+        <div class="col-12">
+            <h2>Cuisines</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <p>Introductionary text about cuisines</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            {% for cuisine in cuisines %}
+                <div class="card">
+                    <img src="/{{imagePath}}/{{ cuisine.picture }}" class="card-img-top tool_picture" alt="{{cuisine.name}}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{cuisine.name}}</h5>
+                        <p class="card-text">{{cuisine.description}}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock %}

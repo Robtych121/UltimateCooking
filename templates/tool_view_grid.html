@@ -1,0 +1,32 @@
+{% extends 'base.html' %}{% block content %}
+<div class="row FadedBlockBackground">
+    <div class="col-12">
+    <div class="row">
+        <div class="col-12">
+            <h2>Tools</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <p>Introductionary text about tools</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            {% for tool in tools %}
+                <div class="card">
+                    <a href="{{ url_for('view_tool', tool_id=tool._id) }}">
+                    <img src="/{{imagePath}}/{{ tool.picture }}" class="card-img-top tool_picture" alt="{{tool.name}}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{tool.name}} - {{tool.brand}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">£{{tool.price}}</h6>
+                        <p class="card-text">{{tool.description}}</p>
+                    </div>
+                </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock %}

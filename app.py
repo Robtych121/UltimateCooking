@@ -235,6 +235,16 @@ def update_tool_picture(tool_id):
         })
     return redirect(url_for('manage_tools'))
 
+@app.route('/view_tools_grid')
+def view_tools_grid():
+    return render_template("tool_view_grid.html",
+    tools=mongo.db.tools.find(),imagePath=app.config['UPLOAD_FOLDER_TOOL'])
+
+@app.route('/view_tool/<tool_id>')
+def view_tool(tool_id):
+    the_tool = mongo.db.tools.find_one({'_id': ObjectId(tool_id)})
+    return render_template("tool_view.html", tool=the_tool, imagePath=app.config['UPLOAD_FOLDER_TOOL'])
+
 # Cuisine Routes
 @app.route('/manage_cuisines')
 def manage_cuisines():
@@ -299,6 +309,11 @@ def update_cuisine_picture(cuisine_id):
             'picture': url
         })
     return redirect(url_for('manage_cuisines'))
+
+@app.route('/view_cuisines_grid')
+def view_cuisines_grid():
+    return render_template("cuisine_view_grid.html",
+    cuisines=mongo.db.cuisines.find(),imagePath=app.config['UPLOAD_FOLDER_CUISINE'])
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
