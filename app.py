@@ -42,7 +42,7 @@ def insert_recipe():
     f.save(os.path.join(app.config['UPLOAD_FOLDER_RECIPE'], f.filename))
     url = f.filename
     keys = request.form.getlist('ingredients')
-    values = request.form.getlist('quantity')
+    values = list(filter(None,request.form.getlist('quantity')))
     ingred_qtys = dict(zip(keys, values))
     recipe_doc = {
         'name': request.form.get('name'),
@@ -51,6 +51,7 @@ def insert_recipe():
         'instructions': request.form.get('instructions'),
         'complexity': request.form.get('complexity'),
         'cookingTime': request.form.get('cookingTime'),
+        'prepTime': request.form.get('prepTime'),
         'servings': request.form.get('servings'),
         'tools': request.form.getlist('tools'),
         'ingredients': ingred_qtys,
@@ -95,6 +96,7 @@ def update_recipe_picture(recipe_id):
             'instructions': recipe['instructions'],
             'complexity': recipe['complexity'],
             'cookingTime': recipe['cookingTime'],
+            'prepTime': recipe['prepTime'],
             'servings': recipe['servings'],
             'tools': recipe['tools'],
             'ingredients': recipe['ingredients'],
@@ -107,7 +109,7 @@ def update_recipe(recipe_id):
     recipes = mongo.db.recipes
     pictures = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)}, {'picture':1,'_id':0})
     keys = request.form.getlist('ingredients')
-    values = request.form.getlist('quantity')
+    values = list(filter(None,request.form.getlist('quantity')))
     ingred_qtys = dict(zip(keys, values))
     recipes.update({'_id': ObjectId(recipe_id)},
         {
@@ -117,6 +119,7 @@ def update_recipe(recipe_id):
             'instructions': request.form.get('instructions'),
             'complexity': request.form.get('complexity'),
             'cookingTime': request.form.get('cookingTime'),
+            'prepTime': request.form.get('prepTime'),
             'servings': request.form.get('servings'),
             'tools': request.form.getlist('tools'),
             'ingredients': ingred_qtys,
