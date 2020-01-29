@@ -133,8 +133,7 @@ def add_ingredient():
 @app.route('/insert_ingredient', methods=['POST'])
 def insert_ingredient():
     recipe_doc = {
-        'name': request.form.get('name'),
-        'unit': request.form.get('unit')
+        'name': request.form.get('name')
         }
     mongo.db.ingredients.insert_one(recipe_doc)
     return redirect(url_for('manage_ingredients'))
@@ -159,8 +158,7 @@ def update_ingredient(ingredient_id):
     ingredients = mongo.db.ingredients
     ingredients.update({'_id': ObjectId(ingredient_id)},
         {
-            'name':request.form.get('name'),
-            'unit':request.form.get('unit')
+            'name':request.form.get('name')
         })
     return redirect(url_for('manage_ingredients'))
 
