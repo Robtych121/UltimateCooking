@@ -99,5 +99,22 @@
     });
   });
   </script>
+  <script>
+    var counter = 1;
+    var dynamicInput = [];
+    
+    function addInput(){
+        var newdiv = document.createElement('div');
+        newdiv.id = dynamicInput[counter];
+        newdiv.innerHTML = "<textarea class='form-control' id='instructions' name='instructions' rows='2'></textarea><input class='btn btn-success btn-sm' type='button' value='Remove Step' onClick='removeInput("+dynamicInput[counter]+");'><hr>";
+        document.getElementById('instructions_container').appendChild(newdiv);
+        counter++;
+    }
+      
+      function removeInput(id){
+        var elem = document.getElementById(id);
+        return elem.parentNode.removeChild(elem);
+      }
+    </script>
 </body>
 </html>

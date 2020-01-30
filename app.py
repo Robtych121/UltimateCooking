@@ -48,13 +48,21 @@ def insert_recipe():
         'name': request.form.get('name'),
         'description': request.form.get('description'),
         'picture': url,
-        'instructions': request.form.get('instructions'),
+        'instructions': request.form.getlist('instructions'),
         'complexity': request.form.get('complexity'),
         'cookingTime': request.form.get('cookingTime'),
         'prepTime': request.form.get('prepTime'),
         'servings': request.form.get('servings'),
         'tools': request.form.getlist('tools'),
         'ingredients': ingred_qtys,
+        'calories': request.form.get('calories'),
+        'fat': request.form.get('fat'),
+        'saturates': request.form.get('saturates'),
+        'carbs': request.form.get('carbs'),
+        'sugars': request.form.get('sugars'),
+        'fibre': request.form.get('fibre'),
+        'protein': request.form.get('protein'),
+        'salt': request.form.get('salt'),
         'cuisine': request.form.get('cuisine')
         }
     mongo.db.recipes.insert_one(recipe_doc)
@@ -100,6 +108,14 @@ def update_recipe_picture(recipe_id):
             'servings': recipe['servings'],
             'tools': recipe['tools'],
             'ingredients': recipe['ingredients'],
+            'calories': recipe['calories'],
+            'fat': recipe['fat'],
+            'saturates': recipe['saturates'],
+            'carbs': recipe['carbs'],
+            'sugars': recipe['sugars'],
+            'fibre': recipe['fibre'],
+            'protein': recipe['protein'],
+            'salt': recipe['salt'],
             'cuisine': recipe['cuisine']
         })
     return redirect(url_for('manage_recipes'))
@@ -116,13 +132,21 @@ def update_recipe(recipe_id):
             'name': request.form.get('name'),
             'description': request.form.get('description'),
             'picture': pictures['picture'],
-            'instructions': request.form.get('instructions'),
+            'instructions': request.form.getlist('instructions'),
             'complexity': request.form.get('complexity'),
             'cookingTime': request.form.get('cookingTime'),
             'prepTime': request.form.get('prepTime'),
             'servings': request.form.get('servings'),
             'tools': request.form.getlist('tools'),
             'ingredients': ingred_qtys,
+            'calories': request.form.get('calories'),
+            'fat': request.form.get('fat'),
+            'saturates': request.form.get('saturates'),
+            'carbs': request.form.get('carbs'),
+            'sugars': request.form.get('sugars'),
+            'fibre': request.form.get('fibre'),
+            'protein': request.form.get('protein'),
+            'salt': request.form.get('salt'),
             'cuisine': request.form.get('cuisine')
         })
     return redirect(url_for('manage_recipes'))

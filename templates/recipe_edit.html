@@ -24,9 +24,12 @@
                     <label class="form-label" for="description">Description</label>
                     <input type="text" class="form-control" id="description" name="description" value="{{ recipe.description }}">
                 </div>
-                <div class="form-group">
+                <div id="instructions_container" class="form-group">
                     <label class="form-label" for="instructions">Instructions</label>
-                    <textarea class="form-control" id="instructions" name="instructions" rows="3">{{ recipe.instructions }}</textarea>
+                    <div id="dynamicInput[0]">
+                        <textarea class="form-control" id="instructions" name="instructions" rows="2">{{ recipe.instructions }}</textarea>
+                    </div>
+                    <input class="btn btn-success btn-sm" type="button" value="Add Step" onClick="addInput();"><hr>
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="complexity">Complexity</label>
@@ -39,14 +42,75 @@
                       </select>
                 </div>
                 <div class="form-row">
-                    <div class="form-group">
+                    <div class="form-group col-md-6">
                         <label class="form-label" for="prepTime">Prep Time (Minutes)</label>
                         <input type="number" class="form-control" id="prepTime" name="prepTime" value="{{ recipe.prepTime }}">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group col-md-6">
                         <label class="form-label" for="cookingTime">Cooking Time (Minutes)</label>
                         <input type="number" class="form-control" id="cookingTime" name="cookingTime" value="{{ recipe.cookingTime }}">
                     </div>
+                </div>
+                <div class="form-group table-responsive">
+                    <label class="form-label" for="cookingTime">Food Stats</label>
+                    <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th scope="col">Kcal</th>
+                            <th scope="col">Fat</th>
+                            <th scope="col">Saturates</th>
+                            <th scope="col">Carbs</th>
+                            <th scope="col">Sugars</th>
+                            <th scope="col">Fibre</th>
+                            <th scope="col">Protein</th>
+                            <th scope="col">Salt</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                            <div class="col-auto">
+                                <input type="text" class="form-control form-control-sm" id="calories" name="calories" value="{{ recipe.calories }}">
+                            </div>
+                            </td>
+                            <td>
+                                <div class="col-auto">
+                                    <input type="text" class="form-control form-control-sm" id="fat" name="fat" value="{{ recipe.fat }}">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col-auto">
+                                    <input type="text" class="form-control form-control-sm" id="saturates" name="saturates" value="{{ recipe.saturates }}">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col-auto">
+                                    <input type="text" class="form-control form-control-sm" id="carbs" name="carbs" value="{{ recipe.carbs }}">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col-auto">
+                                    <input type="text" class="form-control form-control-sm" id="sugars" name="sugars" value="{{ recipe.sugars }}">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col-auto">
+                                    <input type="text" class="form-control form-control-sm" id="fibre" name="fibre" value="{{ recipe.fibre }}">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col-auto">
+                                    <input type="text" class="form-control form-control-sm" id="protein" name="protein" value="{{ recipe.protein }}">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col-auto">
+                                    <input type="text" class="form-control form-control-sm" id="salt" name="salt" value="{{ recipe.salt }}">
+                                </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="servings">Servings</label>
