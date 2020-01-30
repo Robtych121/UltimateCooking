@@ -48,7 +48,7 @@ def insert_recipe():
         'name': request.form.get('name'),
         'description': request.form.get('description'),
         'picture': url,
-        'instructions': request.form.getlist('instructions'),
+        'instructions': list(filter(None,request.form.getlist('instructions'))),
         'complexity': request.form.get('complexity'),
         'cookingTime': request.form.get('cookingTime'),
         'prepTime': request.form.get('prepTime'),
@@ -81,8 +81,10 @@ def delete_recipe(recipe_id):
 @app.route('/edit_recipe/<recipe_id>')
 def edit_recipe(recipe_id):
     the_recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
+    instructions = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)}, {'instructions':1,'_id':0})
+    print(instructions['instructions'])
     return render_template("recipe_edit.html", recipe=the_recipe, cuisines=mongo.db.cuisines.find(),
-    ingredients=mongo.db.ingredients.find(), tools=mongo.db.tools.find(), imagePath=app.config['UPLOAD_FOLDER_RECIPE'])
+    ingredients=mongo.db.ingredients.find(), tools=mongo.db.tools.find(), instructions=instructions['instructions'], imagePath=app.config['UPLOAD_FOLDER_RECIPE'])
 
 @app.route('/edit_recipe_picture/<recipe_id>')
 def edit_recipe_picture(recipe_id):
@@ -132,7 +134,7 @@ def update_recipe(recipe_id):
             'name': request.form.get('name'),
             'description': request.form.get('description'),
             'picture': pictures['picture'],
-            'instructions': request.form.getlist('instructions'),
+            'instructions': list(filter(None,request.form.getlist('instructions'))),
             'complexity': request.form.get('complexity'),
             'cookingTime': request.form.get('cookingTime'),
             'prepTime': request.form.get('prepTime'),

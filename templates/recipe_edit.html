@@ -26,9 +26,12 @@
                 </div>
                 <div id="instructions_container" class="form-group">
                     <label class="form-label" for="instructions">Instructions</label>
+                    {% for instruction in instructions %}
                     <div id="dynamicInput[0]">
-                        <textarea class="form-control" id="instructions" name="instructions" rows="2">{{ recipe.instructions }}</textarea>
+                        <textarea class="form-control" id="instructions" name="instructions" rows="2">{{ instruction }}</textarea>
+                        <hr>
                     </div>
+                    {% endfor %}
                     <input class="btn btn-success btn-sm" type="button" value="Add Step" onClick="addInput();"><hr>
                 </div>
                 <div class="form-group">
