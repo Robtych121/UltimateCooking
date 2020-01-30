@@ -342,6 +342,14 @@ def view_cuisines_grid():
     return render_template("cuisine_view_grid.html",
     cuisines=mongo.db.cuisines.find(),imagePath=app.config['UPLOAD_FOLDER_CUISINE'])
 
+
+# Search Pages
+@app.route('/simpleSearch/', methods=['GET','POST'])
+def simpleSearch():
+    simpleSearch = request.form.get('seachterm')
+    recipes = list(mongo.db.recipes.find({'name':{'$regex':'.*' + simpleSearch + '.*'}}))
+    return render_template("search_simple.html", search_query=simpleSearch, recipes=recipes,imagePath=app.config['UPLOAD_FOLDER_RECIPE'])
+
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
     port=os.environ.get('PORT'),

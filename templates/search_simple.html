@@ -1,0 +1,26 @@
+{% extends 'base.html' %}{% block content %}
+<div class="row FadedBlockBackground">
+    <div class="col-12">
+    <div class="row">
+        <div class="col-12">
+            <h2>Search: "{{ search_query }}"</h2>
+            <hr>
+            {% for recipe in recipes %}
+                <div class="card">
+                    <a href="#">
+                    <img src="/{{imagePath}}/{{ recipe['picture'] }}" class="card-img-top tool_picture" alt="{{recipe['name']}}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{recipe['name']}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{recipe['description']}}</h6>
+                        <p class="card-text">{{recipe['cuisine']}}</p>
+                    </div>
+                </a>
+                </div>
+            {% else %}
+                <p>Sorry nothing was found using that search term, please try again.</p>
+            {%endfor%}
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock %}
