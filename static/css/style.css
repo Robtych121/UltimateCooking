@@ -45,9 +45,11 @@ h1,h2,h3,h4,h5,h6 {
     border-color: #b42124 #b42124 #b42124;
 }
 
-a,a:hover {
+a,a:hover,.btn-link,.btn-link:hover {
     color: #b42124;
 }
+
+
 
 /* Homepage Styles */
 .homepageBlocks {
@@ -145,7 +147,7 @@ Footer {
 
 /* View Tools styles */
 
-.card {
+#grid_View .card {
     float: left;
     width: 31%;
     margin-right: 37px;
@@ -166,4 +168,15 @@ Footer {
 width: 500px;
 object-fit: cover;
 border: 1px solid black;
+}
+
+/* View Recipes styles */
+
+.recipe_details {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.recipe_table {
+    font-size: 12px;
 }

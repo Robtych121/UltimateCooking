@@ -1,0 +1,137 @@
+{% extends 'base.html' %}{% block content %}
+<div class="row FadedBlockBackground">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="/{{imagePath}}/{{ recipe.picture }}" alt="{{ recipe.name}}" class="view_tool_picture">
+            </div>
+            <div class="col-md-6 recipe_details">
+                <h3>{{recipe.name}}</h3>
+                <p>{{recipe.description}}</p>
+                <hr>
+                <p><strong>Cuisine:</strong> {{recipe.cuisine}}</p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Prep Time:</strong> {{ recipe.prepTime}} minutes<br><strong>Cooking Time:</strong> {{ recipe.cookingTime }} minutes</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Servings:</strong> {{ recipe.servings}}<br><strong>Complexity:</strong> {{ recipe.complexity }}</p>
+                    </div>
+                </div>
+                <div class="row table-responsive">
+                <table class="table table-bordered recipe_table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Kcal</th>
+                        <th scope="col">Fat</th>
+                        <th scope="col">Saturates</th>
+                        <th scope="col">Carbs</th>
+                        <th scope="col">Sugars</th>
+                        <th scope="col">Fibre</th>
+                        <th scope="col">Protein</th>
+                        <th scope="col">Salt</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                        <div class="col-auto">
+                            {{ recipe.calories}}
+                        </div>
+                        </td>
+                        <td>
+                            <div class="col-auto">
+                                {{ recipe.fat}}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-auto">
+                                {{ recipe.saturates}}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-auto">
+                                {{ recipe.carbs}}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-auto">
+                                {{ recipe.sugars}}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-auto">
+                                {{ recipe.fibre }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-auto">
+                                {{ recipe.protein }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-auto">
+                                {{ recipe.salt}}
+                            </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                </table>
+                <hr>
+                <div class="accordion" id="accordion">
+                    <div class="card">
+                      <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Instructions
+                          </button>
+                        </h2>
+                      </div>
+                  
+                      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                            {% for instruction in instructions %}
+                            <p>{{ instruction }}</p>
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card">
+                      <div class="card-header" id="headingTwo">
+                        <h2 class="mb-0">
+                          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Tools Required
+                          </button>
+                        </h2>
+                      </div>
+                      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                        <div class="card-body">
+                            {% for tool in tools %}
+                            <p>{{ tool }}</p>
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card">
+                      <div class="card-header" id="headingThree">
+                        <h2 class="mb-0">
+                          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Ingredients
+                          </button>
+                        </h2>
+                      </div>
+                      <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                        <div class="card-body">
+                            {% for ingredient, unit in ingredients.items() %}
+                            <p>{{ ingredient }} - {{ unit }}</p>
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

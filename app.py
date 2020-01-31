@@ -81,10 +81,8 @@ def delete_recipe(recipe_id):
 @app.route('/edit_recipe/<recipe_id>')
 def edit_recipe(recipe_id):
     the_recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
-    instructions = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)}, {'instructions':1,'_id':0})
-    print(instructions['instructions'])
     return render_template("recipe_edit.html", recipe=the_recipe, cuisines=mongo.db.cuisines.find(),
-    ingredients=mongo.db.ingredients.find(), tools=mongo.db.tools.find(), instructions=instructions['instructions'], imagePath=app.config['UPLOAD_FOLDER_RECIPE'])
+    ingredients=mongo.db.ingredients.find(), tools=mongo.db.tools.find(), instructions=the_recipe['instructions'], imagePath=app.config['UPLOAD_FOLDER_RECIPE'])
 
 @app.route('/edit_recipe_picture/<recipe_id>')
 def edit_recipe_picture(recipe_id):
@@ -152,6 +150,11 @@ def update_recipe(recipe_id):
             'cuisine': request.form.get('cuisine')
         })
     return redirect(url_for('manage_recipes'))
+
+@app.route('/view_recipe/<recipe_id>')
+def view_recipe(recipe_id):
+    the_recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
+    return render_template("recipe_view.html", recipe=the_recipe, instructions=the_recipe['instructions'],tools=the_recipe['tools'], ingredients=the_recipe['ingredients'], imagePath=app.config['UPLOAD_FOLDER_RECIPE'])
 
 # Ingredient Routes
 @app.route('/add_ingredient')

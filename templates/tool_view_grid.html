@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-12">
+        <div id="grid_View" class="col-12">
             {% for tool in tools %}
                 <div class="card">
                     <a href="{{ url_for('view_tool', tool_id=tool._id) }}">
