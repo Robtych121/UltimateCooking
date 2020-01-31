@@ -353,6 +353,13 @@ def simpleSearch():
     recipes = list(mongo.db.recipes.find({'name':{'$regex':'.*' + simpleSearch + '.*'}}))
     return render_template("search_simple.html", search_query=simpleSearch, recipes=recipes,imagePath=app.config['UPLOAD_FOLDER_RECIPE'])
 
+@app.route('/advancedSearch/', methods=['GET','POST'])
+def advancedSearch():
+    searchterm = request.form.get('searchterm').lower()
+    searchfield = request.form.get('searchfield')
+    recipes = list(mongo.db.recipes.find({searchfield:{'$regex':'.*' + searchterm + '.*'}}))
+    return render_template("search_advanced.html", search_field=searchfield,search_query=searchterm, recipes=recipes,imagePath=app.config['UPLOAD_FOLDER_RECIPE'])
+
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
     port=os.environ.get('PORT'),

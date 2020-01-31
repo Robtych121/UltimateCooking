@@ -1,0 +1,53 @@
+{% extends 'base.html' %}{% block content %}
+<div class="row FadedBlockBackground">
+    <div class="col-12">
+    <div class="row">
+        <div id="grid_View" class="col-12">
+            <h2>Advanced Search: "{{ search_query }}" in {{ search_field }}</h2>
+            <hr>
+            <form action="{{ url_for('advancedSearch') }}" method="POST">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label" for="searchterm">Search Term</label>
+                            <input type="text" class="form-control" id="searchterm" name="searchterm" placeholder="Search Term">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label" for="searchfield">Search In</label>
+                            <select class="form-control" id="searchfield" name="searchfield">
+                                <option value="" disabled selected>Choose Field</option>
+                                <option value="name">Name</option>
+                                <option value="description">Description</option>
+                                <option value="cuisine">Cuisine</option>
+                                <option value="complexity">Complexity</option>
+                                <option value="servings">Servings</option>
+                              </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">Find Recipe</button>
+                </div>
+            </form>
+            <hr>
+            {% for recipe in recipes %}
+                <div class="card">
+                    <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">
+                    <img src="/{{imagePath}}/{{ recipe['picture'] }}" class="card-img-top tool_picture" alt="{{recipe['name']}}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{recipe['name']}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{recipe['description']}}</h6>
+                        <p class="card-text">{{recipe['cuisine']}}</p>
+                    </div>
+                </a>
+                </div>
+            {% else %}
+                <p>Sorry nothing was found using that search term, please try again.</p>
+            {%endfor%}
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock %}
