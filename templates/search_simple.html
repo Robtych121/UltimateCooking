@@ -5,6 +5,11 @@
         <div id="grid_View" class="col-12">
             <h2>Search: "{{ search_query }}"</h2>
             <hr>
+            <form action="{{ url_for('simpleSearch') }}" method="POST" class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" id="seachterm" name="seachterm" ria-label="Search" value="{{ search_query }}">
+                <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+            <hr>
             {% for recipe in recipes %}
                 <div class="card">
                     <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">

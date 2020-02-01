@@ -10,19 +10,18 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="form-label" for="searchterm">Search Term</label>
-                            <input type="text" class="form-control" id="searchterm" name="searchterm" placeholder="Search Term">
+                            <input type="text" class="form-control" id="searchterm" name="searchterm" value="{{ search_query }}">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="form-label" for="searchfield">Search In</label>
                             <select class="form-control" id="searchfield" name="searchfield">
-                                <option value="" disabled selected>Choose Field</option>
-                                <option value="name">Name</option>
-                                <option value="description">Description</option>
-                                <option value="cuisine">Cuisine</option>
-                                <option value="complexity">Complexity</option>
-                                <option value="servings">Servings</option>
+                                <option value="name" {% if search_field == 'name' %} selected {%endif%}>Name</option>
+                                <option value="description" {% if search_field == 'description' %} selected {%endif%}>Description</option>
+                                <option value="cuisine" {% if search_field == 'cuisine' %} selected {%endif%}>Cuisine</option>
+                                <option value="complexity" {% if search_field == 'complexity' %} selected {%endif%}>Complexity</option>
+                                <option value="servings" {% if search_field == 'servings' %} selected {%endif%}>Servings</option>
                               </select>
                         </div>
                     </div>
