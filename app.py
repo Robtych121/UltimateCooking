@@ -22,7 +22,15 @@ mongo = PyMongo(app)
 
 @app.route('/')
 def home():
-    return render_template("homepage.html")
+    recipes = mongo.db.recipes.count()
+    cuisines = mongo.db.cuisines.count()
+    tools = mongo.db.tools.count()
+
+    # Finds the most common used cuisine
+    favoriteCuisine = mongo.db.recipes.aggregate([
+    {"$group": {"_id": "$cuisine","value": {"$sum": 1}}},{"$sort": {"value": -1}},{"$limit": 1}])
+
+    return render_template("homepage.html", recipecount=recipes, cuisinecount=cuisines, toolcount=tools, favcuisine=list(favoriteCuisine))
 
 @app.route('/manage')
 def manage():

@@ -15,7 +15,6 @@
             <div class="form-group">
                 <label class="form-label" for="searchfield">Search In</label>
                 <select class="form-control" id="searchfield" name="searchfield">
-                    <option value="" disabled selected>Choose Field</option>
                     <option value="name">Name</option>
                     <option value="description">Description</option>
                     <option value="cuisine">Cuisine</option>
@@ -30,9 +29,9 @@
     </div>
 </div>
 <div  class="row HomepageCounters homepageBlocks FadedBlockBackground">
-    <div class="col-md-3 "><div class="CounterBlock" class="align-items-center">Count of Recipes</div></div>
-    <div class="col-md-3"><div class="CounterBlock">Count of Cuisines</div></div>
-    <div class="col-md-3"><div class="CounterBlock">Count of Tools</div></div>
-    <div class="col-md-3"><div class="CounterBlock">Most Popular Cuisine</div></div>
+    <div class="col-md-3 "><div class="CounterBlock"><strong>Count of Recipes</strong><br><span class="CounterValue">{{ recipecount }}</span></div></div>
+    <div class="col-md-3"><div class="CounterBlock"><strong>Count of Cuisines</strong><br><span class="CounterValue">{{ cuisinecount }}</span></div></div>
+    <div class="col-md-3"><div class="CounterBlock"><Strong>Count of Tools</Strong><br><span class="CounterValue">{{ toolcount }}</span></div></div>
+    <div class="col-md-3"><div class="CounterBlock"><strong>Most Popular Cuisine</strong><br><span class="CounterValue">{{ favcuisine[0]['_id'] }}</span></div></div>
 </div>
 {% endblock %}
