@@ -187,3 +187,28 @@ border: 1px solid black;
 .recipe_table {
     font-size: 12px;
 }
+
+/* View Recipe styles */
+
+.filters_container {
+    margin-right: 34px;
+    max-width: 22%;
+    flex: 0 0 22%;
+    ms-flex: 0 0 22%;
+}
+
+#recipe_grid_View .card {
+    float: left;
+    width: 31%;
+    margin-right: 27px;
+    margin-bottom: 30px;
+}
+
+#recipe_grid_View .card:nth-of-type(3n+0) {
+    margin-right: 0;
+}
+
+.recipe_picture {
+    object-fit: cover;
+    height: 200px;
+}

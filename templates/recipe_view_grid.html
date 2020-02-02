@@ -1,0 +1,62 @@
+{% extends 'base.html' %}{% block content %}
+<div class="row">
+    <div class="col-md-2 FadedBlockBackground filters_container">
+        <h2>Filters</h2>
+        <form action="#" method="POST">
+        <p class="form-label">Ingredients</p>
+        {% for ingredient in ingredients %}
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="{{ ingredient.name }}" id="selected_ingredients" name="selected_ingredients">
+                <label class="form-check-label">{{ ingredient.name }}</label>
+            </div>
+        {% endfor %}
+        <hr>
+        <p class="form-label">Tools</p>
+        {% for tool in tools %}
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="{{ tool.name }}" id="selected_tools" name="selected_tools">
+                <label class="form-check-label">{{ tool.name }}</label>
+            </div>
+        {% endfor %}
+        <hr>
+        <p class="form-label">Cuisines</p>
+        {% for cuisine in cuisines %}
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="{{ cuisine.name }}" id="selected_cuisines" name="selected_cuisines">
+                <label class="form-check-label">{{ cuisine.name }}</label>
+            </div>
+        {% endfor %}
+        <hr>
+        <button class="btn btn-success" type="submit">Apply Filters</button>
+        </form>
+    </div>
+    <div class="col-md-9 FadedBlockBackground">
+    <div class="row">
+        <div class="col-12">
+            <h2>Recipes</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <p>Introductionary text about recipes</p>
+        </div>
+    </div>
+    <div class="row">
+        <div id="recipe_grid_View" class="col-12">
+            {% for recipe in recipes %}
+                <div class="card">
+                    <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">
+                    <img src="/{{imagePath}}/{{ recipe.picture }}" class="card-img-top recipe_picture" alt="{{recipe.name}}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{recipe.name}} - {{recipe.brand}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{recipe.cuisine}}</h6>
+                        <p class="card-text">{{recipe.description}}</p>
+                    </div>
+                </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock %}

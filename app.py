@@ -164,6 +164,11 @@ def view_recipe(recipe_id):
     the_recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
     return render_template("recipe_view.html", recipe=the_recipe, instructions=the_recipe['instructions'],tools=the_recipe['tools'], ingredients=the_recipe['ingredients'], imagePath=app.config['UPLOAD_FOLDER_RECIPE'])
 
+@app.route('/view_recipes_grid')
+def view_recipes_grid():
+    return render_template("recipe_view_grid.html",
+    recipes=mongo.db.recipes.find(),imagePath=app.config['UPLOAD_FOLDER_RECIPE'],cuisines=mongo.db.cuisines.find(),ingredients=mongo.db.ingredients.find(),tools=mongo.db.tools.find())
+
 # Ingredient Routes
 @app.route('/add_ingredient')
 def add_ingredient():
