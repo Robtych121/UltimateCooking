@@ -25,14 +25,15 @@
                     <input type="text" class="form-control" id="description" name="description" value="{{ recipe.description }}">
                 </div>
                 <div id="instructions_container" class="form-group">
-                    <label class="form-label" for="instructions">Instructions</label>
+                    <label class="form-label" for="instructions">Instructions</label><br>
+                    <input class="btn btn-success btn-sm" type="button" value="Add Step" onClick="addInput();"><hr>
                     {% for instruction in instructions %}
-                    <div id="dynamicInput[0]">
+                    <div id="dynamicInput{{loop.index}}">
                         <textarea class="form-control" id="instructions" name="instructions" rows="2">{{ instruction }}</textarea>
+                        <input class="btn btn-success btn-sm" type="button" value="Remove Step" onclick="removeInput('dynamicInput{{loop.index}}');">
                         <hr>
                     </div>
                     {% endfor %}
-                    <input class="btn btn-success btn-sm" type="button" value="Add Step" onClick="addInput();"><hr>
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="complexity">Complexity</label>
