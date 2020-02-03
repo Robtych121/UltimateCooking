@@ -88,8 +88,9 @@
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
 <script>
-
+  // jQuery used to create a filter on the list of ingredients - https://www.w3schools.com/jquery/jquery_filters.asp
   $(document).ready(function(){
     $("#ingred_list_container").on("keyup", function() {
       var value = $(this).val().toLowerCase();
@@ -100,6 +101,7 @@
   });
   </script>
   <script>
+    // Javascript to add/remove extra textareas to recipe instructions
     var counter = 1;
     var dynamicInput = [];
     
@@ -116,5 +118,45 @@
         return elem.parentNode.removeChild(elem);
       }
     </script>
+    <script>
+      // Taken from https://codepen.io/piotrek/pen/mXpRmQ and edited for my requirements
+      var allCheckboxes = document.querySelectorAll('input[type=checkbox]');
+      var allRecipes = Array.from(document.querySelectorAll('.recipe'));
+      var checked = {};
+      
+      getChecked('complexity');
+      getChecked('selected_cuisines');
+      getChecked('selected_tools');
+      getChecked('selected_ingredients');
+      
+      Array.prototype.forEach.call(allCheckboxes, function (el) {
+        el.addEventListener('change', toggleCheckbox);
+      });
+      
+      function toggleCheckbox(e) {
+        getChecked(e.target.name);
+        setVisibility();
+      }
+      
+      function getChecked(name) {
+        checked[name] = Array.from(document.querySelectorAll('input[name=' + name + ']:checked')).map(function (el) {
+          return el.value;
+        });
+      }
+      
+      function setVisibility() {
+          allRecipes.map(function (el) {
+          var complexity = checked.complexity.length ? _.intersection(Array.from(el.classList), checked.complexity).length : true;
+          var selected_cuisines = checked.selected_cuisines.length ? _.intersection(Array.from(el.classList), checked.selected_cuisines).length : true;
+          var selected_tools = checked.selected_tools.length ? _.intersection(Array.from(el.classList), checked.selected_tools).length : true;
+          var selected_ingredients = checked.selected_ingredients.length ? _.intersection(Array.from(el.classList), checked.selected_ingredients).length : true;
+          if (complexity && selected_cuisines && selected_tools && selected_ingredients) {
+            el.style.display = 'block';
+          } else {
+            el.style.display = 'none';
+          }
+        });
+      }
+      </script>
 </body>
 </html>
