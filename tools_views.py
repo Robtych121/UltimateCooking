@@ -2,6 +2,7 @@ import os
 from os import path
 from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
+from flask_s3 import FlaskS3
 from bson.objectid import ObjectId
 from werkzeug.utils import secure_filename
 from __main__ import app

@@ -2,6 +2,7 @@ import os
 from os import path
 from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
+from flask_s3 import FlaskS3
 from bson.objectid import ObjectId
 from werkzeug.utils import secure_filename
 
@@ -17,13 +18,17 @@ app.config["SECRET_KEY"] = os.environ['SECRET_KEY']
 app.config['UPLOAD_FOLDER_RECIPE'] = 'static/image/uploads/recipes'
 app.config['UPLOAD_FOLDER_TOOL'] = 'static/image/uploads/tools'
 app.config['UPLOAD_FOLDER_CUISINE'] = 'static/image/uploads/cuisines'
+app.config['FLASKS3_BUCKET_NAME'] = 'ultimatecooking'
 
+s3 = FlaskS3(app)
 mongo = PyMongo(app)
 
 import recipe_views
 import ingredients_views
 import tools_views
 import cuisines_views
+
+s3.init_app(app)
 
 ###############
 # General Pages
