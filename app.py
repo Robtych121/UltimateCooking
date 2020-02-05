@@ -3,6 +3,7 @@ from os import path
 from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
 from flask_s3 import FlaskS3
+import boto3
 from bson.objectid import ObjectId
 from werkzeug.utils import secure_filename
 
@@ -18,7 +19,10 @@ app.config["SECRET_KEY"] = os.environ['SECRET_KEY']
 app.config['UPLOAD_FOLDER_RECIPE'] = 'static/image/uploads/recipes'
 app.config['UPLOAD_FOLDER_TOOL'] = 'static/image/uploads/tools'
 app.config['UPLOAD_FOLDER_CUISINE'] = 'static/image/uploads/cuisines'
-app.config['FLASKS3_BUCKET_NAME'] = 'ultimatecooking'
+app.config['AWS_ACCESS_KEY_ID'] = os.environ['AWS_ACCESS_KEY_ID']
+app.config['AWS_SECRET_ACCESS_KEY'] = os.environ['AWS_SECRET_ACCESS_KEY']
+app.config['FLASKS3_BUCKET_NAME'] = os.environ['AWS_S3_BUCKET_NAME']
+app.config['AWS_BUCKET_LINK'] = 'https://ultimatecooking2020.s3.amazonaws.com/'
 
 s3 = FlaskS3(app)
 mongo = PyMongo(app)
@@ -58,14 +62,14 @@ def manage():
 def simpleSearch():
     simpleSearch = request.form.get('seachterm')
     recipes = list(mongo.db.recipes.find({'name':{'$regex':'.*' + simpleSearch + '.*'}}))
-    return render_template("search_simple.html", search_query=simpleSearch, recipes=recipes,imagePath=app.config['UPLOAD_FOLDER_RECIPE'])
+    return render_template("search_simple.html", search_query=simpleSearch, recipes=recipes,imagePath=app.config['UPLOAD_FOLDER_RECIPE'], s3link=app.config['AWS_BUCKET_LINK'])
 
 @app.route('/advancedSearch/', methods=['GET','POST'])
 def advancedSearch():
     searchterm = request.form.get('searchterm').lower()
     searchfield = request.form.get('searchfield')
     recipes = list(mongo.db.recipes.find({searchfield:{'$regex':'.*' + searchterm + '.*'}}))
-    return render_template("search_advanced.html", search_field=searchfield,search_query=searchterm, recipes=recipes,imagePath=app.config['UPLOAD_FOLDER_RECIPE'])
+    return render_template("search_advanced.html", search_field=searchfield,search_query=searchterm, recipes=recipes,imagePath=app.config['UPLOAD_FOLDER_RECIPE'], s3link=app.config['AWS_BUCKET_LINK'])
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

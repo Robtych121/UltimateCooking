@@ -16,7 +16,7 @@
             {% for tool in tools %}
                 <div class="card">
                     <a href="{{ url_for('view_tool', tool_id=tool._id) }}">
-                    <img src="/{{imagePath}}/{{ tool.picture }}" class="card-img-top tool_picture" alt="{{tool.name}}">
+                    <img src="{{s3link}}{{imagePath}}/{{ tool.picture }}" class="card-img-top tool_picture" alt="{{tool.name}}">
                     <div class="card-body">
                         <h5 class="card-title">{{tool.name}} - {{tool.brand}}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">£{{tool.price}}</h6>

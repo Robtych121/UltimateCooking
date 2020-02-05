@@ -60,7 +60,7 @@
             {% for recipe in recipes %}
                 <div class="card recipe complex-{{recipe.complexity}} cuisine-{{ recipe.cuisine }} {% for tool in recipe['tools'] %}tool-{{ recipe['tools'][loop.index-1] }} {%endfor%}{% for key,values in recipe['ingredients'].items() %}ingred-{{key}} {%endfor%}">
                     <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">
-                    <img src="/{{imagePath}}/{{ recipe.picture }}" class="card-img-top recipe_picture" alt="{{recipe.name}}">
+                    <img src="{{s3link}}{{imagePath}}/{{ recipe.picture }}" class="card-img-top recipe_picture" alt="{{recipe.name}}">
                     <div class="card-body">
                         <h5 class="card-title">{{recipe.name}} - {{recipe.brand}}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">{{recipe.cuisine}}</h6>

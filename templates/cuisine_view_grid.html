@@ -15,7 +15,7 @@
         <div id="grid_View" class="col-12">
             {% for cuisine in cuisines %}
                 <div class="card">
-                    <img src="/{{imagePath}}/{{ cuisine.picture }}" class="card-img-top tool_picture" alt="{{cuisine.name}}">
+                    <img src="{{s3link}}{{imagePath}}/{{ cuisine.picture }}" class="card-img-top tool_picture" alt="{{cuisine.name}}">
                     <div class="card-body">
                         <h5 class="card-title">{{cuisine.name}}</h5>
                         <p class="card-text">{{cuisine.description}}</p>

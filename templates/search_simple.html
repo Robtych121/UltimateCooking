@@ -13,7 +13,7 @@
             {% for recipe in recipes %}
                 <div class="card">
                     <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">
-                    <img src="/{{imagePath}}/{{ recipe['picture'] }}" class="card-img-top tool_picture" alt="{{recipe['name']}}">
+                    <img src="{{s3link}}{{imagePath}}/{{ recipe['picture'] }}" class="card-img-top tool_picture" alt="{{recipe['name']}}">
                     <div class="card-body">
                         <h5 class="card-title">{{recipe['name']}}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">{{recipe['description']}}</h6>

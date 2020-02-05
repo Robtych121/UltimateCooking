@@ -3,10 +3,21 @@ from os import path
 from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
 from flask_s3 import FlaskS3
+import boto3
 from bson.objectid import ObjectId
 from werkzeug.utils import secure_filename
 from __main__ import app
 from __main__ import mongo
+
+def upload_file(file_name, bucket):
+    """
+    Function to upload a file to an S3 bucket
+    """
+    object_name = file_name
+    s3_client = boto3.client('s3')
+    response = s3_client.upload_file(file_name, bucket, object_name)
+
+    return response
 
 @app.route('/add_recipe')
 def add_recipe():
@@ -19,6 +30,7 @@ def add_recipe():
 def insert_recipe():
     f = request.files['file']
     f.save(os.path.join(app.config['UPLOAD_FOLDER_RECIPE'], f.filename))
+    upload_file(app.config['UPLOAD_FOLDER_RECIPE'] + "/" + f.filename, app.config['FLASKS3_BUCKET_NAME'])
     url = f.filename
     keys = request.form.getlist('ingredients')
     values = list(filter(None,request.form.getlist('quantity')))
@@ -66,12 +78,13 @@ def edit_recipe(recipe_id):
 @app.route('/edit_recipe_picture/<recipe_id>')
 def edit_recipe_picture(recipe_id):
     the_recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
-    return render_template("recipe_pic_edit.html", recipe=the_recipe, imagePath=app.config['UPLOAD_FOLDER_RECIPE'])
+    return render_template("recipe_pic_edit.html", recipe=the_recipe, imagePath=app.config['UPLOAD_FOLDER_RECIPE'], s3link=app.config['AWS_BUCKET_LINK'])
 
 @app.route('/update_recipe_picture/<recipe_id>', methods=['POST'])
 def update_recipe_picture(recipe_id):
     f = request.files['file']
     f.save(os.path.join(app.config['UPLOAD_FOLDER_RECIPE'], f.filename))
+    upload_file(app.config['UPLOAD_FOLDER_RECIPE'] + "/" + f.filename, app.config['FLASKS3_BUCKET_NAME'])
     url = f.filename
     recipes = mongo.db.recipes
     recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
@@ -133,9 +146,9 @@ def update_recipe(recipe_id):
 @app.route('/view_recipe/<recipe_id>')
 def view_recipe(recipe_id):
     the_recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
-    return render_template("recipe_view.html", recipe=the_recipe, instructions=the_recipe['instructions'],tools=the_recipe['tools'], ingredients=the_recipe['ingredients'], imagePath=app.config['UPLOAD_FOLDER_RECIPE'])
+    return render_template("recipe_view.html", recipe=the_recipe, instructions=the_recipe['instructions'],tools=the_recipe['tools'], ingredients=the_recipe['ingredients'], imagePath=app.config['UPLOAD_FOLDER_RECIPE'], s3link=app.config['AWS_BUCKET_LINK'])
 
 @app.route('/view_recipes_grid')
 def view_recipes_grid():
     return render_template("recipe_view_grid.html",
-    recipes=mongo.db.recipes.find(),imagePath=app.config['UPLOAD_FOLDER_RECIPE'],cuisines=mongo.db.cuisines.find(),ingredients=mongo.db.ingredients.find(),tools=mongo.db.tools.find())
+    recipes=mongo.db.recipes.find(),imagePath=app.config['UPLOAD_FOLDER_RECIPE'],cuisines=mongo.db.cuisines.find(),ingredients=mongo.db.ingredients.find(),tools=mongo.db.tools.find(), s3link=app.config['AWS_BUCKET_LINK'])

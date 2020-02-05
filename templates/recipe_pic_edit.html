@@ -13,7 +13,7 @@
             <form action="{{ url_for('update_recipe_picture', recipe_id=recipe._id) }}" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label class="form-label" for="picture">Picture</label>
-                    <p><img src="/{{imagePath}}/{{ recipe.picture }}" alt="" width="100"><br>Filename: {{ recipe.picture }}</p>
+                    <p><img src="{{s3link}}{{imagePath}}/{{ recipe.picture }}" alt="" width="100"><br>Filename: {{ recipe.picture }}</p>
                     <input type="file" class="form-control-file" id="file" name="file">
                 </div>
                 <button type="submit" class="btn btn-success">Submit</button>
