@@ -227,6 +227,9 @@ Footer {
     height: 200px;
 }
 
+.recipe_details .table td, .recipe_details .table th {
+    padding: 0.5rem;
+}
 
 /* Styles For mobile devices */
 @media only screen and (max-width: 991px) {
