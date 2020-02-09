@@ -170,6 +170,10 @@ Footer {
     margin-right: 0;
 }
 
+.row-clearer {
+    clear: both;
+}
+
 .tool_picture {
     object-fit: cover;
     height: 200px;
@@ -235,6 +239,7 @@ Footer {
     margin-right:23px;
 }
 
+
 }
 @media only screen and (max-width: 767px) {
     .HomepageCounters .col-md-3 {
@@ -255,14 +260,15 @@ Footer {
     }
 
     #recipe_grid_View .card, #recipe_grid_View .card:nth-of-type(3n) {
-        width: 45%;
+        width: 100%;
         margin-right: 16px;
     }
 
     #grid_View .card,#grid_View .card:nth-of-type(3n) {
         margin-right: 12px;
-        width:46%;
+        width:100%;
     }
+
     #DarkFooter .col-md-4:nth-last-of-type(2) {
         border-right: none;
         border-left: none;

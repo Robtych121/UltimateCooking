@@ -21,6 +21,9 @@
                         <p class="card-text">{{cuisine.description}}</p>
                     </div>
                 </div>
+                {% if loop.index % 3 == 0 %}
+                <div class="row-clearer"></div>
+                {% endif%}
             {% endfor %}
         </div>
     </div>
