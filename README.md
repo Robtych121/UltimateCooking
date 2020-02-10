@@ -66,6 +66,8 @@ To be able to achieve the user stories for the users/owner, I tested the followi
 - I was able to view a page with all the tools listed
 - I was able to view a page with all the cuisines listed
 
+During testing, I had discovered that trying to find and fix the views proved difficult with a single large app.py file. To help against this, I have grouped the views into the area they deal with. (i.e all recipe views are within recipe_views.py). Once this was done, it became much easier to fix bugs and allowed my code to be more streamlined.
+
 #### Mobile Responsive Testing
 The responsiveness of the website was tested using Google Devtools and using my own mobile android device (Using Google Chrome).
 
