@@ -9,7 +9,7 @@ from werkzeug.utils import secure_filename
 
 # Import local environment settings - Local only
 if path.exists("env.py"):
-    import env 
+    import env
 
 app = Flask(__name__)
 
@@ -26,6 +26,12 @@ app.config['AWS_BUCKET_LINK'] = 'https://ultimatecooking2020.s3.amazonaws.com/'
 
 s3 = FlaskS3(app)
 mongo = PyMongo(app)
+
+
+###############
+# View Imports
+###############
+
 
 import recipe_views
 import ingredients_views
@@ -46,9 +52,16 @@ def home():
     tools = mongo.db.tools.count()
 
     # Finds the most common used cuisine
-    favoriteCuisine = mongo.db.recipes.aggregate([{"$group": {"_id": "$cuisine", "value": {"$sum": 1}}}, {"$sort": {"value": -1}}, {"$limit": 1}])
+    favCuisine = mongo.db.recipes.aggregate([{"$group": {"_id": "$cuisine",
+                                            "value": {"$sum": 1}}},
+                                            {"$sort": {"value": -1}},
+                                            {"$limit": 1}])
 
-    return render_template("homepage.html", recipecount=recipes, cuisinecount=cuisines, toolcount=tools, favcuisine=list(favoriteCuisine))
+    return render_template("homepage.html",
+                           recipecount=recipes,
+                           cuisinecount=cuisines,
+                           toolcount=tools,
+                           favcuisine=list(favCuisine))
 
 
 @app.route('/manage')
@@ -64,7 +77,11 @@ def manage():
 def simpleSearch():
     simpleSearch = request.form.get('seachterm')
     recipes = list(mongo.db.recipes.find({'name': {'$regex': '.*' + simpleSearch + '.*'}}))
-    return render_template("search_simple.html", search_query=simpleSearch, recipes=recipes, imagePath=app.config['UPLOAD_FOLDER_RECIPE'], s3link=app.config['AWS_BUCKET_LINK'])
+    return render_template("search_simple.html",
+                           search_query=simpleSearch,
+                           recipes=recipes,
+                           imagePath=app.config['UPLOAD_FOLDER_RECIPE'],
+                           s3link=app.config['AWS_BUCKET_LINK'])
 
 
 @app.route('/advancedSearch/', methods=['GET', 'POST'])
@@ -72,7 +89,12 @@ def advancedSearch():
     searchterm = request.form.get('searchterm').lower()
     searchfield = request.form.get('searchfield')
     recipes = list(mongo.db.recipes.find({searchfield: {'$regex': '.*' + searchterm + '.*'}}))
-    return render_template("search_advanced.html", search_field=searchfield, search_query=searchterm, recipes=recipes, imagePath=app.config['UPLOAD_FOLDER_RECIPE'], s3link=app.config['AWS_BUCKET_LINK'])
+    return render_template("search_advanced.html",
+                           search_field=searchfield,
+                           search_query=searchterm,
+                           recipes=recipes,
+                           imagePath=app.config['UPLOAD_FOLDER_RECIPE'],
+                           s3link=app.config['AWS_BUCKET_LINK'])
 
 if __name__ == '__main__': app.run(host=os.environ.get('IP'),
                                    port=os.environ.get('PORT'),
