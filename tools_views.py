@@ -23,7 +23,7 @@ def upload_file(file_name, bucket):
 
 @app.route('/manage_tools')
 def manage_tools():
-    return render_template("tool_manage.html",
+    return render_template("tool/tool_manage.html",
                            tools=mongo.db.tools.find())
 
 
@@ -53,7 +53,7 @@ def insert_tool():
 @app.route('/edit_tool/<tool_id>')
 def edit_tool(tool_id):
     the_tool = mongo.db.tools.find_one({'_id': ObjectId(tool_id)})
-    return render_template("tool_edit.html",
+    return render_template("tool/tool_edit.html",
                            tool=the_tool,
                            imagePath=app.config['UPLOAD_FOLDER_TOOL'],
                            s3link=app.config['AWS_BUCKET_LINK'])
@@ -83,7 +83,7 @@ def delete_tool(tool_id):
 @app.route('/edit_tool_picture/<tool_id>')
 def edit_tool_picture(tool_id):
     the_tool = mongo.db.tools.find_one({'_id': ObjectId(tool_id)})
-    return render_template("tool_pic_edit.html",
+    return render_template("tool/tool_pic_edit.html",
                            tool=the_tool,
                            imagePath=app.config['UPLOAD_FOLDER_TOOL'],
                            s3link=app.config['AWS_BUCKET_LINK'])
@@ -111,7 +111,7 @@ def update_tool_picture(tool_id):
 
 @app.route('/view_tools_grid')
 def view_tools_grid():
-    return render_template("tool_view_grid.html",
+    return render_template("tool/tool_view_grid.html",
                            tools=mongo.db.tools.find(),
                            imagePath=app.config['UPLOAD_FOLDER_TOOL'],
                            s3link=app.config['AWS_BUCKET_LINK'])
@@ -120,7 +120,7 @@ def view_tools_grid():
 @app.route('/view_tool/<tool_id>')
 def view_tool(tool_id):
     the_tool = mongo.db.tools.find_one({'_id': ObjectId(tool_id)})
-    return render_template("tool_view.html",
+    return render_template("tool/tool_view.html",
                            tool=the_tool,
                            imagePath=app.config['UPLOAD_FOLDER_TOOL'],
                            s3link=app.config['AWS_BUCKET_LINK'])
