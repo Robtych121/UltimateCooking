@@ -29,7 +29,7 @@ def manage_tools():
 
 @app.route('/add_tool')
 def add_tool():
-    return render_template("tool_add.html")
+    return render_template("tool/tool_add.html")
 
 
 @app.route('/insert_tool', methods=['POST'])
